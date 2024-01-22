@@ -39,8 +39,7 @@ NOTION - [https://www.notion.so/WeGreen-0b8f4a96053f4682b7a78ac326e50d92](https:
 
 
 <h2>✨Flow Chat</h2>
-
-<img width="575" alt="image" src="![image](https://github.com/hdonghun/jeju/assets/67058000/81f85aa1-b7f3-44ae-a571-0be43c5d9a6c)">
+![image](https://github.com/hdonghun/jeju/assets/67058000/a9ebc1df-1728-4ef0-af83-a6a33fdf4d90)
 
 
 <h2>✨시연</h2>
