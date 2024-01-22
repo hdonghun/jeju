@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주 여행 추천 챗봇</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #chat-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            opacity: 0;
+            animation: appear 0.5s ease-out forwards;
+        }
+        .user-message {
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px;
+        }
+        .bot-message .message-bubble {
+            background-color: #FF7F66;
+            color: #fff;
+        }
+        .user-message .message-bubble {
+            background-color: #FDBA8E;
+            color: #fff;
+            text-align: right;
+        }
+        #user-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #eee;
+        }
+        #user-message {
+            flex-grow: 1;
+            padding: 5px;
+        }
+        #send-button {
+            padding: 8px 15px;
+            background-color: #FDBA8E;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end; /* 텍스트를 오른쪽 정렬 */
+            padding: 10px;
+            background-color: #ccc;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .option-box {
+            padding: 10px;
+            margin: 5px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .selected-option {
+            background-color: #FDBA8E;
+            color: #fff;
+        }
+        @keyframes appear {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <!-- 챗봇 메시지가 표시될 영역 -->
+        <div id="chat-messages"></div>
+        <!-- 사용자 입력 영역 -->
+        <div id="user-input">
+            <input type="text" id="user-message" placeholder="숨겨진 제주를 찾아 떠나요, 어디를 가고 싶으세요?">
+            <button id="send-button" onclick="sendMessage()">전송</button>
+        </div>
+    </div>
+    <script>
+        async function sendMessage() {
+            const inputField = document.getElementById('user-message');
+            const chatbox = document.getElementById('chat-messages');
+            const userText = inputField.value;
+    
+            // 사용자의 메시지를 채팅창에 추가
+            appendMessage('user', userText);
+    
+            // 서버에 메시지를 전송하고 응답을 받음
+            const response = await fetch('http://localhost:5000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_input: userText })  // 'user_input' 키를 사용
+            });
+    
+            try {
+                const data = await response.json();
+                // 서버의 응답을 채팅창에 추가
+                if (data.response) {
+                    appendMessage('bot', data.response);
+                } else {
+                    appendMessage('bot', '서버에서 정상적인 응답을 받지 못했습니다.');
+                }
+            } catch (error) {
+                console.error('Error parsing server response:', error);
+                appendMessage('bot', '서버와의 통신 중 문제가 발생했습니다.');
+            }
+    
+            // 입력 필드 초기화
+            inputField.value = '';
+        }
+    
+        // 초기 환영 메시지
+        appendMessage("bot", "안녕하세요! 쉬영갑서 챗봇입니다. 어떻게 도와드릴까요?");
+    
+        // 메시지를 채팅창에 추가하는 함수
+        function appendMessage(sender, message) {
+            const chatbox = document.getElementById('chat-messages');
+            const messageClass = sender === "bot" ? "bot-message" : "user-message";
+            chatbox.innerHTML += `<div class="chat-message ${messageClass}"><div class="message-bubble">${message}</div></div>`;
+        }
+    </script>
+    
+</body>
+</html>
+
