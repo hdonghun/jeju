@@ -13,7 +13,7 @@
 |------|---|---|
 |김가은|https://github.com/qqro724|AI, 기획, 디자인|
 |남소민|https://github.com/somin0214|AI, 기획, 챗봇시스템, 추천시스템|
-|배진혜|https://github.com/jinurumi|AI, 기획, 추천시스템|
+|배진혜|https://github.com/jinurumi|AI, 기획, 데이터셋구축, 추천시스템|
 |한동훈|https://github.com/hdonghun|AI, 기획, 백엔드, 프론트엔드, 디자인|
 
 <h2>✨기술 스택</h2>
