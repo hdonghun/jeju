@@ -35,15 +35,13 @@ Figma - [https://www.figma.com/file/Pfb4M8AZLIDEIID9DWGHCd/WeGreen-GUI?type=desi
 
 <h4>✨노션</<h4>
 
-NOTION - [https://www.notion.so/WeGreen-0b8f4a96053f4682b7a78ac326e50d92](https://www.notion.so/2023-32679a09093d462ca4a24c8c5dcba22b)
+NOTION - [https://www.notion.so/WeGreen-0b8f4a96053f4682b7a78ac326e50d92]
 
 
 <h2>✨Flow Chat</h2>
-![image](https://github.com/hdonghun/jeju/assets/67058000/a9ebc1df-1728-4ef0-af83-a6a33fdf4d90)
-
-
-<h2>✨시연</h2>
+<img width="677" alt="image" src="https://github.com/hdonghun/jeju/assets/67058000/4455c546-c7a9-4a3b-b00c-67b7099b6da5">
 
 
 
-
+<h2>✨시연 영상 링크</h2>
+https://www.notion.so/7cc9064022b14d948b81d63b3a6125cf
