@@ -28,12 +28,7 @@ from pydantic import BaseModel
 class UserInput(BaseModel):
     user_input: str
 
-
-openai.api_key = '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'
-
-# 키 입력하는 다른 방법
-# 터미널에서 키 입력 : export OPENAI_API_KEY='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'
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # API 키가 제대로 설정되었는지 확인
 if not openai.api_key:
