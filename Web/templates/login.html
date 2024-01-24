@@ -1,0 +1,86 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #BEF781;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #0C8C6D; /* 변경된 부분: 이쁜 초록색으로 수정 */
+        }
+
+        .login-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #000000; /* 검은색 직선 추가 */
+            outline: none; /* 포커스 시 테두리 제거 */
+        }
+
+        .additional-text {
+            margin-top: 10px;
+            color: #0C8C6D; /* 이쁜 초록색으로 수정 */
+        }
+
+        .login-button {
+            background-color: #0C8C6D;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover {
+            background-color: #0A6F54;
+        }
+    </style>
+
+    <script>
+        function goToLoginPage() {
+            window.location.href = '/logged_page'; 
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <form class="login-form">
+            <div class="title">감귤나라 하르망왕자에 로그인</div>
+            <input type="text" class="form-input" placeholder="아이디 (이메일)">
+            <br>
+            <input type="password" class="form-input" placeholder="비밀번호">
+            <br>
+            <button onclick="goToLoginPage()" class="login-button">로그인 완료</button>
+        </form>
+    </div>
+</body>
+</html>

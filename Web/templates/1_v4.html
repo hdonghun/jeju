@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Create a separate CSS file for better organization -->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('image/배경.png');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        header img {
+            width: 100%;
+            height: auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* Ensure images don't overflow */
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        img.slide-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .map-button button,
+        .auth-buttons button {
+            background-color: #FFA500;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .map-button button:hover,
+        .auth-buttons button:hover {
+            background-color: #297fb8;
+        }
+
+        .auth-buttons button {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .auth-buttons button:last-child {
+            margin-right: 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            .map-button button,
+            .auth-buttons button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        
+    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <title>숨겨진 제주를 찾다</title>
+
+    <script>
+        function goToMapBasedPage() {
+            window.location.href = '/map_based';
+        }
+
+        function goToLoginPage() {
+            window.location.href = '/login';
+        }
+
+        function goToCreateAccountPage() {
+            window.location.href = '/create_account';
+        }
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYRnz32sp-EKdLnCOm0YSURaqL77UWXRmT-I2shCZoL6J5RVKYeddyyeUwt_eVe5EwbkDCwIBGW_6_FeGtLi0s1Ny6A_=w2292-h1440" alt="Jeje" width="500">
+    </header>
+
+    
+    
+
+    <div class="container">
+        <div class="image-container slideshow-container">
+            <div class="mySlides">
+                <img class="slide-image" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYSFjBSia3fnNJk5S4vn_f_gQlixQf99cOGe35bOXIroqwsx_TKoWDZkF4rIxGqyqydCimQoysyYI6R3MxVYq1XX9CFFTQ=w1540-h1560" alt="Jeju Image 1">
+            </div>
+            <div class="mySlides">
+                <img class="slide-image" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYS02nTmpW9fbZMbAfXOVB0zPL8-zjlYdjAGWWdULhEoPKMJQNmvHaGAHUGrIr6jXkZV4kidAvhDuYyPTgEXXc-IKlv3MQ=w1540-h1560" alt="Jeju Image 2">
+            </div>
+            <div class="mySlides">
+                <img class="slide-image" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTAYXpTDIF97jxyYxOXLi-05SZa7KIBgf01prPKzxhakfeb-DNJGFXqej2iv3dpWGVK5j6CUCNwzZbRTSi4JWAhaFe6kg=w2638-h1560" alt="Jeju Image 3">
+            </div>
+            <div class="mySlides">
+                <img class="slide-image" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTPthqu7AX7fUR-5VFUdbYFmr0J6m8keIpQfCCIqMkTeAnbgDfzEi05BZHhNCKVnit6gNK_TT4J6y_0jUR9CJE0oGg29g=w1540-h1560" alt="Jeju Image 4">
+            </div>
+            <div class="mySlides">
+                <img class="slide-image" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYSXZQy9KRm1qFyhvfBb9kLhmH2vW0TlmTN4hwFX-mHV_UQhtXJJrpqRBPJ8CB6RTIMHm2V0XoYWZomk_SgGB2sYveu-wA=w1540-h1560" alt="Jeju Image 5">
+            </div>
+        </div>
+
+        <div class="map-button">
+            <button onclick="goToMapBasedPage()">지도 기반 추천</button>
+        </div>
+
+        <div class="auth-buttons">
+            <button onclick="goToLoginPage()">로그인</button>
+            <button onclick="goToCreateAccountPage()">회원가입</button>
+        </div>
+    </div>
+
+
+    <script>
+        var slideIndex = 0;
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change slide every 2 seconds (adjust as needed)
+        }
+
+        // Call the function to start the slideshow
+        showSlides();
+    </script>
+</body>
+
+</html>

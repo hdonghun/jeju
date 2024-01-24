@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>다양한 이미지 마커 표시하기</title>
+    <style>
+        #mapwrap{position:relative;overflow:hidden;}
+        .category, .category *{margin:0;padding:0;color:#000;}   
+        .category {position:absolute;overflow:hidden;top:10px;left:10px;width:250px;height:50px;z-index:10;border:1px solid black;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+        .category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;} 
+        .category li{list-style:none;float:left;width:50px;height:45px;padding-top:5px;cursor:pointer;} 
+        .category .ico_tour {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block; /* 이 부분을 추가해보세요. */
+            width: 22px; /* 아이콘 너비에 맞게 조절하세요. */
+            height: 26px; /* 아이콘 높이에 맞게 조절하세요. */
+            margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+        }
+        .category .ico_barrierfree {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block; /* 이 부분을 추가해보세요. */
+            width: 22px; /* 아이콘 너비에 맞게 조절하세요. */
+            height: 26px; /* 아이콘 높이에 맞게 조절하세요. */
+            margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+        }
+        .category .ico_hotel {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block; /* 이 부분을 추가해보세요. */
+            width: 22px; /* 아이콘 너비에 맞게 조절하세요. */
+            height: 26px; /* 아이콘 높이에 맞게 조절하세요. */
+            margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+        }
+        .category .ico_restaurant {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block; /* 이 부분을 추가해보세요. */
+            width: 22px; /* 아이콘 너비에 맞게 조절하세요. */
+            height: 26px; /* 아이콘 높이에 맞게 조절하세요. */
+            margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+        }
+        .category .ico_cafe {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block; /* 이 부분을 추가해보세요. */
+            width: 22px; /* 아이콘 너비에 맞게 조절하세요. */
+            height: 26px; /* 아이콘 높이에 맞게 조절하세요. */
+            margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+        }
+      
+        #map { width: 50px; height: 100px; }
+    </style>
+   
+    
+</head>
+<body>
+<div id="mapwrap"> 
+    <!-- 지도가 표시될 div -->
+    <div id="map" style="width:100%;height:350px;"></div>
+    <!-- 지도 위에 표시될 마커 카테고리 -->
+    <div class="category">
+        <ul>
+            <li id="tourMenu" onclick="changeMarker('tour')">
+                <span class="ico_tour"></span>
+                관광지
+            </li>
+            <li id="barrierfreeMenu" onclick="changeMarker('barrierfree')">
+                <span class="ico_barrierfree"></span>
+                무장애
+            </li>
+            <li id="hotelMenu" onclick="changeMarker('hotel')">
+                <span class="ico_hotel"></span>
+                숙소
+            </li>
+            <li id="restaurantMenu" onclick="changeMarker('restaurant')">
+                <span class="ico_restaurant"></span>
+                음식점
+            </li>
+            </li>
+            <li id="cafeMenu" onclick="changeMarker('cafe')">
+                <span class="ico_cafe"></span>
+                카페
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6253800ba679d43679f99b8ba6c33170"></script>
+<script>
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.24916799207346, 126.41075134277384), // 지도의 중심좌표 
+        level: 6 // 지도의 확대 레벨 
+    };  
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다 
+
+
+// 관광 시설 마커가 표시될 좌표 배열입니다
+var tourPositions = []; 
+
+// 주어진 딕셔너리 코드
+var  map_info = [
+      {
+        "latitude": 33.4056365,
+        "longitude": 126.2567624
+      },
+      {
+        "latitude": 33.4499421,
+        "longitude": 126.9183775
+      },
+      {
+        "latitude": 33.4916603,
+        "longitude": 126.8969993
+      },
+      {
+        "latitude": 33.5096625,
+        "longitude": 126.5904168
+      },
+      {
+        "latitude": 33.5406613,
+        "longitude": 126.6630994
+      },
+      {
+        "latitude": 33.5232074,
+        "longitude": 126.8571133
+      },
+      {
+        "latitude": 33.5138238,
+        "longitude": 126.5195356
+      },
+      {
+        "latitude": 33.3163888,
+        "longitude": 126.5973999
+      },
+      {
+        "latitude": 33.4435555,
+        "longitude": 126.7785412
+      },
+      {
+        "latitude": 33.48309800000001,
+        "longitude": 126.4772312
+      },
+      {
+        "latitude": 33.5128705,
+        "longitude": 126.5219573
+      },
+      {
+        "latitude": 33.5547725,
+        "longitude": 126.7940828
+      },
+      {
+        "latitude": 33.5088398,
+        "longitude": 126.5127292
+      },
+      {
+        "latitude": 33.5368865,
+        "longitude": 126.8377244
+      },
+      {
+        "latitude": 33.4742871,
+        "longitude": 126.5489455
+      },
+      {
+        "latitude": 33.5128796,
+        "longitude": 126.5290189
+      },
+      {
+        "latitude": 33.2364242,
+        "longitude": 126.50804
+      },
+      {
+        "latitude": 33.5548183,
+        "longitude": 126.7979651
+      },
+      {
+        "latitude": 33.5063978,
+        "longitude": 126.5339123
+      },
+      {
+        "latitude": 33.3025489,
+        "longitude": 126.5245747
+      },
+      {
+        "latitude": 33.3491801,
+        "longitude": 126.1820167
+      },
+      {
+        "latitude": 33.5122122,
+        "longitude": 126.5282021
+      },
+      {
+        "latitude": 33.517696,
+        "longitude": 126.5191
+      },
+      {
+        "latitude": 33.3885692,
+        "longitude": 126.3664921
+      },
+      {
+        "latitude": 33.4491244,
+        "longitude": 126.3045
+      },
+      {
+        "latitude": 0.0,
+        "longitude": 0.0
+      },
+      {
+        "latitude": 33.9642903,
+        "longitude": 126.2929862
+      },
+      {
+        "latitude": 33.4393726,
+        "longitude": 126.6284479
+      },
+      {
+        "latitude": 33.5312449,
+        "longitude": 126.8506911
+      },
+      {
+        "latitude": 33.5151524,
+        "longitude": 126.9568199
+      },
+      {
+        "latitude": 33.307407,
+        "longitude": 126.81277
+      },
+      {
+        "latitude": 33.316591,
+        "longitude": 126.2673621
+      },
+      {
+        "latitude": 33.9636778,
+        "longitude": 126.2957655
+      },
+      {
+        "latitude": 33.9642903,
+        "longitude": 126.2929862
+      },
+      {
+        "latitude": 33.9567036,
+        "longitude": 126.2969646
+      },
+      {
+        "latitude": 33.253227,
+        "longitude": 126.55367
+      },
+      {
+        "latitude": 33.3701721,
+        "longitude": 126.4819697
+      },
+      {
+        "latitude": 33.4362191,
+        "longitude": 126.9185529
+      },
+      {
+        "latitude": 33.514126,
+        "longitude": 126.527855
+      },
+      {
+        "latitude": 33.25718,
+        "longitude": 126.18884
+      },
+      {
+        "latitude": 33.9642903,
+        "longitude": 126.2929862
+      },
+      {
+        "latitude": 33.49222,
+        "longitude": 126.5105595
+      },
+      {
+        "latitude": 33.4972931,
+        "longitude": 126.9671356
+      },
+      {
+        "latitude": 33.2921763,
+        "longitude": 126.761385
+      },
+      {
+        "latitude": 33.9642903,
+        "longitude": 126.2929862
+      },
+      {
+        "latitude": 33.5087804,
+        "longitude": 126.5221168
+      },
+      {
+        "latitude": 33.3061806,
+        "longitude": 126.3372647
+      },
+      {
+        "latitude": 33.9642903,
+        "longitude": 126.2929862
+      },
+      {
+        "latitude": 33.254112,
+        "longitude": 126.419876
+      },
+      {
+        "latitude": 33.9632897,
+        "longitude": 126.2976894
+      },
+      {
+        "latitude": 33.4511838,
+        "longitude": 126.3655877
+      },
+      {
+        "latitude": 33.5526428,
+        "longitude": 126.7922749
+      },
+      {
+        "latitude": 33.4056365,
+        "longitude": 126.2567624
+      },
+      {
+        "latitude": 33.5081334,
+        "longitude": 126.4711466
+      },
+      {
+        "latitude": 33.9567036,
+        "longitude": 126.2969646
+      },
+      {
+        "latitude": 33.4883518,
+        "longitude": 126.4895599
+      },
+      {
+        "latitude": 33.51983,
+        "longitude": 126.49447
+      },
+      {
+        "latitude": 33.4903668,
+        "longitude": 126.4888158
+      },
+      {
+        "latitude": 33.442856,
+        "longitude": 126.2899532
+      },
+      {
+        "latitude": 33.242974,
+        "longitude": 126.4322915
+      },
+      {
+        "latitude": 33.4853375,
+        "longitude": 126.3918721
+      },
+      {
+        "latitude": 33.5061399,
+        "longitude": 126.5316454
+      },
+      {
+        "latitude": 33.499622,
+        "longitude": 126.53119
+      },
+      {
+        "latitude": 33.29326,
+        "longitude": 126.23335
+      },
+      {
+        "latitude": 33.4861576,
+        "longitude": 126.494388
+      },
+      {
+        "latitude": 33.488667,
+        "longitude": 126.387405
+      },
+      {
+        "latitude": 33.4826164,
+        "longitude": 126.4896573
+      },
+      {
+        "latitude": 33.51695,
+        "longitude": 126.52344
+      },
+      {
+        "latitude": 33.5024275,
+        "longitude": 126.4586378
+      },
+      {
+        "latitude": 33.3807357,
+        "longitude": 126.2482491
+      },
+      {
+        "latitude": 33.5268068,
+        "longitude": 126.5876413
+      },
+      {
+        "latitude": 33.3504691,
+        "longitude": 126.8235669
+      },
+      {
+        "latitude": 33.4831051,
+        "longitude": 126.4150235
+      },
+      {
+        "latitude": 33.4848645,
+        "longitude": 126.4885577
+      },
+      {
+        "latitude": 33.2922889,
+        "longitude": 126.7393618
+      },
+      {
+        "latitude": 33.32677,
+        "longitude": 126.83669
+      },
+      {
+        "latitude": 33.5356003,
+        "longitude": 126.6365084
+      },
+      {
+        "latitude": 33.5503369,
+        "longitude": 126.6930908
+      },
+      {
+        "latitude": 33.4843386,
+        "longitude": 126.3811424
+      },
+      {
+        "latitude": 33.5563685,
+        "longitude": 126.7933906
+      },
+      {
+        "latitude": 33.5126109,
+        "longitude": 126.5212526
+      },
+      {
+        "latitude": 33.5236296,
+        "longitude": 126.8539539
+      },
+      {
+        "latitude": 33.119724,
+        "longitude": 126.26715
+      },
+      {
+        "latitude": 33.475548,
+        "longitude": 126.54848
+      }]
+    // ... (주어진 딕셔너리 코드)
+
+// 위도와 경도를 추출하여 kakao.maps.LatLng()로 변환하고 tourPositions에 추가
+for (var i = 0; i < map_info.length; i++) {
+    var latitude = map_info[i].latitude;
+    var longitude = map_info[i].longitude;
+
+    // 추출한 위도와 경도로 kakao.maps.LatLng() 객체 생성
+    var latLng = new kakao.maps.LatLng(latitude, longitude);
+
+    // tourPositions 리스트에 추가
+    tourPositions.push(latLng);
+}
+
+
+
+// 무장애 시설 마커가 표시될 좌표 배열입니다
+var barrierfreePositions = [
+    new kakao.maps.LatLng(33.257713, 126.408182),
+    new kakao.maps.LatLng(33.257780, 126.412819),
+    new kakao.maps.LatLng(33.259082, 126.406931),
+    new kakao.maps.LatLng(33.246995, 126.408938),
+    new kakao.maps.LatLng(33.249018, 126.409246),
+    new kakao.maps.LatLng(33.252679, 126.418378),                     
+]; 
+
+// 숙소 시설 마커가 표시될 좌표 배열입니다
+var hotelPositions = [
+    new kakao.maps.LatLng(33.257713, 126.408182),
+    new kakao.maps.LatLng(33.257780, 126.412819),
+    new kakao.maps.LatLng(33.259082, 126.406931),
+    new kakao.maps.LatLng(33.246995, 126.408938),
+    new kakao.maps.LatLng(33.249018, 126.409246),
+    new kakao.maps.LatLng(33.252679, 126.418378),                     
+]; 
+
+// 음식점 시설 마커가 표시될 좌표 배열입니다
+var restaurantPositions = [
+    new kakao.maps.LatLng(33.257713, 126.408182),
+    new kakao.maps.LatLng(33.257780, 126.412819),
+    new kakao.maps.LatLng(33.259082, 126.406931),
+    new kakao.maps.LatLng(33.246995, 126.408938),
+    new kakao.maps.LatLng(33.249018, 126.409246),
+    new kakao.maps.LatLng(33.252679, 126.418378),                     
+]; 
+
+// 카페 시설 마커가 표시될 좌표 배열입니다
+var cafePositions = [
+    new kakao.maps.LatLng(33.257713, 126.408182),
+    new kakao.maps.LatLng(33.257780, 126.412819),
+    new kakao.maps.LatLng(33.259082, 126.406931),
+    new kakao.maps.LatLng(33.246995, 126.408938),
+    new kakao.maps.LatLng(33.249018, 126.409246),
+    new kakao.maps.LatLng(33.252679, 126.418378),                     
+]; 
+
+var markerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434';  // 마커이미지의 주소입니다. 스프라이트 이미지 입니다
+var tourMarkers = []; // 관광지 마커 객체를 가지고 있을 배열입니다
+var barrierfreeMarkers = []; // 무장애 마커 객체를 가지고 있을 배열입니다
+var hotelMarkers = []; // 숙소 마커 객체를 가지고 있을 배열입니다
+var restaurantMarkers = []; // 음식점 마커 객체를 가지고 있을 배열입니다
+var cafeMarkers = []; // 카페 마커 객체를 가지고 있을 배열입니다
+
+    
+createTourMarkers(); // 관광지 마커를 생성하고 커피숍 마커 배열에 추가합니다
+createBarrierfreeMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
+createHotelMarkers(); // 숙소 마커를 생성하고 편의점 마커 배열에 추가합니다
+createRestaurantMarkers(); // 음식점 마커를 생성하고 주차장 마커 배열에 추가합니다
+createCafeMarkers(); // 카페 마커를 생성하고 주차장 마커 배열에 추가합니다
+
+changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
+
+// 마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
+function createMarkerImage(src, size, options) {
+    var markerImage = new kakao.maps.MarkerImage(src, size, options);
+    return markerImage;            
+}
+
+
+// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
+function createMarker(position, image) {
+    var marker = new kakao.maps.Marker({
+        position: position,
+        image: image
+    });
+    
+    return marker;  
+}   
+
+ // 관광지 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+ function createTourMarkers() {
+    for (var i = 0; i < tourPositions.length; i++) {
+        
+        var imageSize = new kakao.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new kakao.maps.Point(0, 0),    
+                spriteSize: new kakao.maps.Size(22, 26)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(tourPositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        tourMarkers.push(marker);    
+    }        
+}
+
+// 관광지 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setTourMarkers(map) {        
+    for (var i = 0; i < tourMarkers.length; i++) {  
+        tourMarkers[i].setMap(map);
+    }        
+}  
+
+
+ // 무장애 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+function createBarrierfreeMarkers() {
+    for (var i = 0; i < barrierfreePositions.length; i++) {
+        
+        var imageSize = new kakao.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new kakao.maps.Point(0, 0),    
+                spriteSize: new kakao.maps.Size(22, 26)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(barrierfreePositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        barrierfreeMarkers.push(marker);    
+    }        
+}
+
+// 무장애 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setBarrierfreeMarkers(map) {        
+    for (var i = 0; i < barrierfreeMarkers.length; i++) {  
+        barrierfreeMarkers[i].setMap(map);
+    }        
+} 
+
+ // 숙소 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+ function createHotelMarkers() {
+    for (var i = 0; i < hotelPositions.length; i++) {
+        
+        var imageSize = new kakao.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new kakao.maps.Point(0, 0),    
+                spriteSize: new kakao.maps.Size(22, 26)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(hotelPositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        hotelMarkers.push(marker);    
+    }        
+}
+
+// 숙소 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setHotelMarkers(map) {        
+    for (var i = 0; i < hotelMarkers.length; i++) {  
+        hotelMarkers[i].setMap(map);
+    }        
+} 
+
+ // 음식점 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+ function createRestaurantMarkers() {
+    for (var i = 0; i < restaurantPositions.length; i++) {
+        
+        var imageSize = new kakao.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new kakao.maps.Point(0, 0),    
+                spriteSize: new kakao.maps.Size(22, 26)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(restaurantPositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        restaurantMarkers.push(marker);    
+    }        
+}
+
+// 음식점 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setRestaurantMarkers(map) {        
+    for (var i = 0; i < restaurantMarkers.length; i++) {  
+        restaurantMarkers[i].setMap(map);
+    }        
+} 
+ // 카페 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+ function createCafeMarkers() {
+    for (var i = 0; i < cafePositions.length; i++) {
+        
+        var imageSize = new kakao.maps.Size(22, 26),
+            imageOptions = {   
+                spriteOrigin: new kakao.maps.Point(0, 0),    
+                spriteSize: new kakao.maps.Size(22, 26)  
+            };       
+     
+        // 마커이미지와 마커를 생성합니다
+        var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
+            marker = createMarker(cafePositions[i], markerImage);  
+
+        // 생성된 마커를 편의점 마커 배열에 추가합니다
+        cafeMarkers.push(marker);    
+    }        
+}
+
+// 카페 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setCafeMarkers(map) {        
+    for (var i = 0; i < cafeMarkers.length; i++) {  
+        cafeMarkers[i].setMap(map);
+    }        
+} 
+
+
+// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
+function changeMarker(type){
+    
+    var tourMenu = document.getElementById('tourMenu');
+    var barrierfreeMenu = document.getElementById('barrierfreeMenu');
+    var hotelMenu = document.getElementById('hotelMenu');
+    var restaurantMenu = document.getElementById('restaurantMenu');
+    var cafeMenu = document.getElementById('cafeMenu');
+    
+    
+    // 관광지 카테고리가 클릭됐을 때
+    if (type === 'tour') {
+    
+        // 선택되지 않은 스타일로 바꿉니다
+        tourMenu.className = 'menu_selected';
+        barrierfreeMenu.className = '';
+        hotelMenu.className = '';
+        restaurantMenu.className = '';
+        cafeMenu.className = '';
+        
+        // 한 개 마커만 지도에 표시하도록 설정합니다
+        setTourMarkers(map);
+        setBarrierfreeMarkers(null);
+        setHotelMarkers(null);
+        setRestaurantMarkers(null);
+        setCafeMarkers(null);
+        
+    } else if (type === 'barrierfree') { // 무장애 카테고리가 클릭됐을 때
+    
+         // 선택되지 않은 스타일로 바꿉니다
+         tourMenu.className = '';
+         barrierfreeMenu.className = 'menu_selected';
+         hotelMenu.className = '';
+         restaurantMenu.className = '';
+         cafeMenu.className = '';
+         
+         // 한 개 마커만 지도에 표시하도록 설정합니다
+         setTourMarkers(null);
+         setBarrierfreeMarkers(map);
+         setHotelMarkers(null);
+         setRestaurantMarkers(null);
+         setCafeMarkers(null);
+        
+    } else if (type === 'hotel') { // 숙소 카테고리가 클릭됐을 때
+     
+         // 선택되지 않은 스타일로 바꿉니다
+         tourMenu.className = '';
+         barrierfreeMenu.className = '';
+         hotelMenu.className = 'menu_selected';
+         restaurantMenu.className = '';
+         cafeMenu.className = '';
+         
+         // 한 개 마커만 지도에 표시하도록 설정합니다
+         setTourMarkers(null);
+         setBarrierfreeMarkers(null);
+         setHotelMarkers(map);
+         setRestaurantMarkers(null);
+         setCafeMarkers(null); 
+    } else if (type === 'restaurant') { // 음식점 카테고리가 클릭됐을 때
+    
+         // 선택되지 않은 스타일로 바꿉니다
+         tourMenu.className = '';
+         barrierfreeMenu.className = '';
+         hotelMenu.className = '';
+         restaurantMenu.className = 'menu_selected';
+         cafeMenu.className = '';
+         
+         // 한 개 마커만 지도에 표시하도록 설정합니다
+         setTourMarkers(null);
+         setBarrierfreeMarkers(null);
+         setHotelMarkers(null);
+         setRestaurantMarkers(map);
+         setCafeMarkers(null); 
+    }  else if (type === 'cafe') { // 카페 카테고리가 클릭됐을 때
+    
+        // 선택되지 않은 스타일로 바꿉니다
+        tourMenu.className = '';
+        barrierfreeMenu.className = '';
+        hotelMenu.className = '';
+        restaurantMenu.className = '';
+        cafeMenu.className = 'menu_selected';
+        
+        // 한 개 마커만 지도에 표시하도록 설정합니다
+        setTourMarkers(null);
+        setBarrierfreeMarkers(null);
+        setHotelMarkers(null);
+        setRestaurantMarkers(null);
+        setCafeMarkers(map); 
+    }    
+
+} 
+</script>
+</body>
+</html> 
+
