@@ -1,0 +1,76 @@
+<!-- create_account.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #BEF781;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #0C8C6D;
+        }
+
+        .create-account-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #000000;
+            outline: none;
+        }
+
+        .register-button {
+            background-color: #0C8C6D;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .register-button:hover {
+            background-color: #0A6F54;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="create-account-form">
+            <div class="title">회원가입</div>
+            <input type="text" class="form-input" placeholder="이름">
+            <br>
+            <input type="text" class="form-input" placeholder="이메일">
+            <br>
+            <input type="password" class="form-input" placeholder="비밀번호">
+            <br>
+            <button class="register-button">가입 완료</button>
+        </form>
+    </div>
+</body>
+</html>

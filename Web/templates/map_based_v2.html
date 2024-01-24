@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>지도 기반 추천</title>
+    <style>
+        #mapwrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category,
+        .category * {
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        .category {
+            position: absolute;
+            overflow: hidden;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 50px;
+            z-index: 10;
+            border: 1px solid black;
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            font-size: 12px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .category .menu_selected {
+            background: #FF5F4A;
+            color: #fff;
+            border-left: 1px solid #915B2F;
+            border-right: 1px solid #915B2F;
+            margin: 0 -1px;
+        }
+
+        .category li {
+            list-style: none;
+            float: left;
+            width: 50px;
+            height: 45px;
+            padding-top: 5px;
+            cursor: pointer;
+        }
+
+        .category .ico_tour {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYRjzXy1mK_4GHm_G3K2sip7E3u_BmLvacuCA5-LPT-qpX7FhgdDx5wQEIyKkVT6V6a7e0m1N9YxTn3ZrtQiWIaKMosu=w2126-h1492') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        .category .ico_barrierfree {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        .category .ico_hotel {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTp5ylUzvPyy91Jphb5TDbN5WhJvYDs232__3NyCcgTpqM0pbNCcfu2H7TIRO4NWOX79VJifWN0W8HoTQxTc_bi2Z4oPw=w2126-h1492') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        .category .ico_restaurant {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTtdEq6vhZWG9TC4KcK4L4CQq2yi5dL8JAQMX1UwgNOvYHzaSpYnr2-39EPSnS1Mci2CLPWcyNZixS66ThZLWA8NeCUlg=w2126-h1492') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        .category .ico_cafe {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQiB8i_XFk0Y6P3yJf3Dg4XbfsO0t7KbgQBaksddeSbvummn0Y3yjbGLnr36u-lanQMm5TePMEGZcACPAqxyHsq7KwlfA=w2326-h1496') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        .category .ico_hdh {
+            background: url('https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434') no-repeat;
+            background-size: cover;
+            display: block;
+            width: 22px;
+            height: 26px;
+            margin: 0 auto;
+        }
+
+        #map {
+            width: 200px;
+            height: 200px;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 460vh;
+        }
+        
+        .map-section {
+            width: 100%;
+            height: 50px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .recommendation-section {
+            width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        /* Media Query */
+        @media screen and (max-width: 768px) {
+            .recommendation-section {
+                justify-content: center;  /* 화면이 작을 때 가운데 정렬 */
+            }
+        }
+        
+        .place-info {
+            width: 200px;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+        }
+        
+        .place-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .place-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #000000;
+        }
+        
+        .place-introduction {
+            margin-top: 10px;
+            color: #000000;
+        }
+        
+        .place-location {
+            margin-top: 10px;
+            color: #000000;
+        }
+        
+        .favorite-button {
+            background-color: #0C8C6D;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .favorite-button:hover {
+            background-color: #0A6F54;
+        }
+        </style>
+        
+</head>
+
+<body>
+    <div id="mapwrap">
+        <div id="map-container" style="width:100%;height:350px;"></div>
+        
+        <div class="category">
+            <ul>
+                <li id="tourMenu" onclick="changeMarker('tour')">
+                    <span class="ico_tour"></span>
+                    관광지
+                </li>
+                <li id="barrierfreeMenu" onclick="changeMarker('barrierfree')">
+                    <span class="ico_barrierfree"></span>
+                    무장애
+                </li>
+                <li id="hotelMenu" onclick="changeMarker('hotel')">
+                    <span class="ico_hotel"></span>
+                    숙소
+                </li>
+                <li id="restaurantMenu" onclick="changeMarker('restaurant')">
+                    <span class="ico_restaurant"></span>
+                    음식점
+                </li>
+                <li id="cafeMenu" onclick="changeMarker('cafe')">
+                    <span class="ico_cafe"></span>
+                    카페
+                </li>
+                <li id="hdhMenu" onclick="changeMarker('hdh')">
+                    <span class="ico_hdh"></span>
+                    테스트
+                </li>            
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6253800ba679d43679f99b8ba6c33170"></script>
+    <script>
+        var map_info = {{ map_info | tojson | safe }};
+        var places = {{ places | tojson | safe }};
+        var barrier_free = {{ barrier_free | tojson | safe }};
+
+        var latLngArray = [];
+        var tourPositions = [];
+        var barrierFreeMarkers = [];
+
+        // 기본 관광지 데이터
+        for (var i = 0; i < map_info.length; i += 2) {
+            var latitude = map_info[i];
+            var longitude = map_info[i + 1];
+
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+                var latLng = new kakao.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
+                tourPositions.push(latLng);
+                latLngArray.push(latLng);
+            }
+        }
+
+        var mapContainer = document.getElementById('map-container'),
+            mapOption = {
+                center: new kakao.maps.LatLng(33.38916799207346, 126.55),
+                level: 9
+            };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        
+        // 지도에 교통정보를 표시하도록 지도타입을 추가합니다   
+        map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+
+
+        var tourmarkerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYRjzXy1mK_4GHm_G3K2sip7E3u_BmLvacuCA5-LPT-qpX7FhgdDx5wQEIyKkVT6V6a7e0m1N9YxTn3ZrtQiWIaKMosu=w2126-h1492';
+        var barrierfreemarkerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434';
+        var restaurantmarkerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTtdEq6vhZWG9TC4KcK4L4CQq2yi5dL8JAQMX1UwgNOvYHzaSpYnr2-39EPSnS1Mci2CLPWcyNZixS66ThZLWA8NeCUlg=w2126-h1492';
+        var hotelmarkerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYTp5ylUzvPyy91Jphb5TDbN5WhJvYDs232__3NyCcgTpqM0pbNCcfu2H7TIRO4NWOX79VJifWN0W8HoTQxTc_bi2Z4oPw=w2126-h1492';
+        var cafemarkerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQiB8i_XFk0Y6P3yJf3Dg4XbfsO0t7KbgQBaksddeSbvummn0Y3yjbGLnr36u-lanQMm5TePMEGZcACPAqxyHsq7KwlfA=w2326-h1496';
+        var markerImageSrc = 'https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYQpXga319MaMTrRpCn6io5PZqzA0qYEB7g8PgM3GDHMWUrzTiRFO1mtaZ94Qsjs-lHTTcGLtjvQZTAnxo53ux1OqsLVEw=w1968-h1434';
+        
+        
+        var tourMarkers = [];
+
+        createTourMarkers();
+        changeMarker('tour');
+
+        function createMarkerImage(src, size, options) {
+            var markerImage = new kakao.maps.MarkerImage(src, size, options);
+            return markerImage;
+        }        
+
+        function createMarker(position, image, content) {
+
+            var marker = new kakao.maps.Marker({
+                position: position,
+                image: image,
+                clickable: true
+            });
+
+            marker.setMap(map);
+
+            var infowindow = new kakao.maps.InfoWindow({
+                content: content,
+                removable: true
+            });
+
+            kakao.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+
+            return marker;
+            }
+
+            function createTourMarkers() {
+                for (var i = 0; i < tourPositions.length; i++) {
+                    var imageSize = new kakao.maps.Size(22, 26),
+                        imageOptions = {
+                            spriteOrigin: new kakao.maps.Point(0, 0),
+                            spriteSize: new kakao.maps.Size(22, 26)
+                        };
+            
+                    var placeData = places[i];
+                    var title = placeData.title;
+                    var introduction = placeData.introduction;
+                    var imgpath = placeData.imgpath;
+            
+                    var content = '<div class="place-info">' +
+                        '<img class="place-image" src="' + imgpath + '" alt="' + title + '" onclick="openDetailedInfoPage(\'' + title + '\')">' +
+                        '<div class="place-name">' + title + '</div>' +
+                        '<div class="place-introduction">' + introduction + '</div>' +
+                        '</div>';
+            
+                    var markerImage = createMarkerImage(tourmarkerImageSrc, imageSize, imageOptions),
+                        marker = createMarker(tourPositions[i], markerImage, content);
+            
+                    tourMarkers.push(marker);
+                }
+            }
+            
+        function setTourMarkers(map) {
+            for (var i = 0; i < tourMarkers.length; i++) {
+                tourMarkers[i].setMap(map);
+            }
+        }
+        setTourMarkers(map);
+
+    // 무장애
+        function createBarrierFreeMarkers() {
+            console.log('무장애 마커 생성 중');
+        
+            for (var i = 0; i < barrier_free.length; i++) {
+                console.log('barrier_free:', barrier_free);
+        
+                var imageSize = new kakao.maps.Size(22, 26),
+                    imageOptions = {
+                        spriteOrigin: new kakao.maps.Point(0, 0),
+                        spriteSize: new kakao.maps.Size(22, 26)
+                    };
+        
+                var placeData = barrier_free[i];
+                var title = placeData.title;
+                var introduction = placeData.introduction;
+                var address = placeData.address;
+        
+                console.log('title:', title);
+                console.log('introduction:', introduction);
+        
+                var content = '<div class="place-info">' +
+                    '<div class="place-name">' + title + '</div>' +
+                    '<div class="place-introduction">' + introduction + '</div>' +
+                    '<div class="place-location">' + address + '</div>' +
+                    '</div>';
+        
+                var markerImage = createMarkerImage(barrierfreemarkerImageSrc, imageSize, imageOptions),
+                    marker = createMarker(new kakao.maps.LatLng(parseFloat(placeData.latitude), parseFloat(placeData.longitude)), markerImage, content);
+        
+                barrierFreeMarkers.push(marker);
+            }
+        }
+        // 또미니 추가 시작
+
+                // 숙소 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+        function createHotelMarkers() {
+            for (var i = 0; i < hotelPositions.length; i++) {
+                
+                var imageSize = new kakao.maps.Size(22, 26),
+                    imageOptions = {   
+                        spriteOrigin: new kakao.maps.Point(0, 0),    
+                        spriteSize: new kakao.maps.Size(22, 26)  
+                    };       
+            
+                // 마커이미지와 마커를 생성합니다
+                var markerImage = createMarkerImage(hotelmarkerImageSrc, imageSize, imageOptions),    
+                    marker = createMarker(hotelPositions[i], markerImage);  
+
+                // 생성된 마커를 편의점 마커 배열에 추가합니다
+                hotelMarkers.push(marker);    
+            }        
+        }
+
+        // 숙소 마커들의 지도 표시 여부를 설정하는 함수입니다
+        function setHotelMarkers(map) {        
+            for (var i = 0; i < hotelMarkers.length; i++) {  
+                hotelMarkers[i].setMap(map);
+            }        
+        } 
+
+        // 음식점 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+        function createRestaurantMarkers() {
+            for (var i = 0; i < restaurantPositions.length; i++) {
+                
+                var imageSize = new kakao.maps.Size(22, 26),
+                    imageOptions = {   
+                        spriteOrigin: new kakao.maps.Point(0, 0),    
+                        spriteSize: new kakao.maps.Size(22, 26)  
+                    };       
+            
+                // 마커이미지와 마커를 생성합니다
+                var markerImage = createMarkerImage(restaurantmarkerImageSrc, imageSize, imageOptions),    
+                    marker = createMarker(restaurantPositions[i], markerImage);  
+
+                // 생성된 마커를 편의점 마커 배열에 추가합니다
+                restaurantMarkers.push(marker);    
+            }        
+        }
+
+        // 음식점 마커들의 지도 표시 여부를 설정하는 함수입니다
+        function setRestaurantMarkers(map) {        
+            for (var i = 0; i < restaurantMarkers.length; i++) {  
+                restaurantMarkers[i].setMap(map);
+            }        
+        } 
+        // 카페 마커를 생성하고 new 마커 배열에 추가하는 함수입니다
+        function createCafeMarkers() {
+            for (var i = 0; i < cafePositions.length; i++) {
+                
+                var imageSize = new kakao.maps.Size(22, 26),
+                    imageOptions = {   
+                        spriteOrigin: new kakao.maps.Point(0, 0),    
+                        spriteSize: new kakao.maps.Size(22, 26)  
+                    };       
+            
+                // 마커이미지와 마커를 생성합니다
+                var markerImage = createMarkerImage(cafemarkerImageSrc, imageSize, imageOptions),    
+                    marker = createMarker(cafePositions[i], markerImage);  
+
+                // 생성된 마커를 편의점 마커 배열에 추가합니다
+                cafeMarkers.push(marker);    
+            }        
+        }
+
+        // 카페 마커들의 지도 표시 여부를 설정하는 함수입니다
+        function setCafeMarkers(map) {        
+            for (var i = 0; i < cafeMarkers.length; i++) {  
+                cafeMarkers[i].setMap(map);
+            }        
+        } 
+
+
+                
+
+
+        // 또미니 추가 끝
+        
+        function setBarrierFreeMarkers(map) {
+            for (var i = 0; i < barrierFreeMarkers.length; i++) {
+                barrierFreeMarkers[i].setMap(map);
+            }
+        }
+
+        createBarrierFreeMarkers();
+        setBarrierFreeMarkers(map);
+
+
+        function changeMarker(type) {
+            var tourMenu = document.getElementById('tourMenu');
+            var barrierfreeMenu = document.getElementById('barrierfreeMenu');
+        
+            // 클래스 이름 초기화
+            tourMenu.className = '';
+            barrierfreeMenu.className = '';
+
+            // 모든 마커 숨기기
+            setTourMarkers(null);
+            setBarrierFreeMarkers(null);
+
+             if (type === 'tour') {
+                tourMenu.className = 'menu_selected';
+                setTourMarkers(map);
+             } else if (type === 'barrierfree') {
+                barrierfreeMenu.className = 'menu_selected';
+                setBarrierFreeMarkers(map);
+             }
+
+        function setCustomBarrierFreeMarkers(map) {
+            for (var i = 0; i < barrierFreeMarkers.length; i++) {
+                var markerImage = createMarkerImage('https://imagescdn.gettyimagesbank.com/500/18/400/039/0/1064553186.jpg', imageSize, imageOptions);
+                barrierFreeMarkers[i].setImage(markerImage);
+                barrierFreeMarkers[i].setMap(map);
+            }
+        }
+    }
+
+    function openDetailedInfoPage(title, latitude, longitude) {
+        var detailedInfoURL = 'detailed_info?title=' + encodeURIComponent(title);
+
+        // AJAX 또는 fetch 등을 사용하여 서버에서 상세 정보를 가져오는 로직이 필요합니다.
+        // 이 예시에서는 데이터가 미리 로드되어 있다고 가정하고, 해당 데이터를 가져와서 사용합니다.
+        var detailedInfo = findDetailedInfoByTitle(title);
+
+        // 가져온 데이터를 상세 페이지로 전달하면서 이동
+        window.location.href = detailedInfoURL;
+    }
+
+    // 미리 로드된 데이터에서 title에 해당하는 상세 정보를 찾아오는 함수 (예시)
+    function findDetailedInfoByTitle(title) {
+        for (var i = 0; i < places.length; i++) {
+            if (places[i].title === title) {
+                return places[i];
+            }
+        }
+        // 해당 title에 대한 정보를 찾지 못한 경우, 빈 객체 또는 에러 처리를 할 수 있습니다.
+        return {};
+    }
+
+
+
+    </script>
+
+
+
+    <div class="container">
+        <div class="map-section" id="map"></div>
+
+        <div class="recommendation-section">
+            {% for place in places %}
+        <div class="place-info">
+            {% if place.imgpath %}
+                <img src="{{ place.imgpath }}" alt="Place Image" class="place-image" onclick="openDetailedInfoPage('{{ place.title }}')">
+            {% else %}
+                <!-- 기본 이미지가 없을 경우에 대한 처리 또는 다른 대체 방법을 넣을 수 있습니다. -->
+                <img src="/home/alpaco/jeju/user/hdh/web/templates/image/배경.png" alt="Default Image" class="place-image" onclick="openDetailedInfoPage('{{ place.title }}')">
+            {% endif %}
+            <div class="place-name">{{ place.title }}</div>
+            <div class="place-introduction">{{ place.introduction }}</div>
+        </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    </body>
+
+
+
+
+
+</html>

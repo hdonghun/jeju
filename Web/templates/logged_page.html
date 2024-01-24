@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #BEF781;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #E40000;
+            text-align: center;
+        }
+
+        .image-container {
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-button, .auth-buttons {
+            margin-top: 20px;
+        }
+
+        .map-button button, .auth-buttons button {
+            background-color: #0C8C6D;
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .map-button button:hover, .auth-buttons button:hover {
+            background-color: #0A6F54;
+        }
+
+        .auth-buttons button {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .auth-buttons button:last-child {
+            margin-right: 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            /* Adjust styles for smaller screens */
+            .map-button button, .auth-buttons button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+    <title>숨겨진 제주를 찾다</title>
+    <script>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="title">숨겨진 <span style="color: #0C8C6D;">제주를</span> 찾다</div>
+        <div class="image-container">
+            <img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AEYmBYSNx5ifxn3VdYCMU8a7r_IVZ176Xle9FaPKpK9aUQ6LfhHmW7j7Ct1_iwjmkCXYF5DEtlxGDFMKs0DqkNWVARNEFQma0g=w2940-h1510" alt="Jeju Image" width="500">
+        </div>
+        <div class="map-button">
+            <button>지도 기반 추천</button>
+        </div>
+            <div> 안녕하세요, 땡땡님 </div>
+        </div>
+    </div>
+</body>
+</html>
