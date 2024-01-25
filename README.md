@@ -38,10 +38,12 @@ Figma - [https://www.figma.com/file/Pfb4M8AZLIDEIID9DWGHCd/WeGreen-GUI?type=desi
 NOTION - [https://www.notion.so/WeGreen-0b8f4a96053f4682b7a78ac326e50d92]
 
 
-<h2>✨Flow Chat</h2>
+<h4>✨Flow Chat</h4>
 <img width="677" alt="image" src="https://github.com/hdonghun/jeju/assets/67058000/4455c546-c7a9-4a3b-b00c-67b7099b6da5">
 
 
-
-<h2>✨시연 영상 링크</h2>
+<h4>✨시연 영상 링크</h4>
 https://www.notion.so/7cc9064022b14d948b81d63b3a6125cf
+
+<h4>✨PPT</h4>
+https://1drv.ms/p/s!AqRLejczPIa_itNMwWKCNNimOQUVcw?e=3yEzFL&nav=eyJzSWQiOjI3Mn0
