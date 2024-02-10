@@ -34,7 +34,7 @@ Figma - [https://www.figma.com/file/Pfb4M8AZLIDEIID9DWGHCd/WeGreen-GUI?type=desi
 
 <h4>✨노션</<h4>
 
-NOTION - [https://www.notion.so/WeGreen-0b8f4a96053f4682b7a78ac326e50d92]
+NOTION - https://stealth-homburg-5c8.notion.site/2023-359f7baeba5c4903bf493a4f721244ac?pvs=4
 
 
 <h4>✨Flow Chat</h4>
