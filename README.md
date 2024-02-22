@@ -26,7 +26,6 @@
 <h3>✨서버</h3>
 알파코 가상서버
 
-
 <h4>✨디자인</h4>
 
 Figma - [https://www.figma.com/file/Pfb4M8AZLIDEIID9DWGHCd/WeGreen-GUI?type=design&mode=design&t=D415r8whTSDfkd8n-0](https://www.figma.com/file/avt7ISsaRasmTn5eM58FFR/%EC%A0%9C%EC%A3%BC---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?type=design&node-id=0%3A1&mode=dev)
