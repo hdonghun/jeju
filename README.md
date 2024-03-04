@@ -44,4 +44,5 @@ NOTION - https://stealth-homburg-5c8.notion.site/2023-359f7baeba5c4903bf493a4f72
 https://www.notion.so/7cc9064022b14d948b81d63b3a6125cf
 
 <h4>✨PPT</h4>
-https://1drv.ms/p/s!AqRLejczPIa_itNMwWKCNNimOQUVcw?e=3yEzFL&nav=eyJzSWQiOjI3Mn0
+[https://1drv.ms/p/s!AqRLejczPIa_itNMwWKCNNimOQUVcw?e=3yEzFL&nav=eyJzSWQiOjI3Mn0
+](https://1drv.ms/p/s!AqRLejczPIa_itNM1m00oCqO_YE87A?e=HiwIOZ)https://1drv.ms/p/s!AqRLejczPIa_itNM1m00oCqO_YE87A?e=HiwIOZ
