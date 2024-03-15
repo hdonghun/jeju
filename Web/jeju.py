@@ -106,17 +106,17 @@ def test(request: Request):
 def test(request: Request):
     return templates.TemplateResponse("5icon_map.html", {"request": request})
 
-### 소민 : 관광지(이미지, 주소, 장소명 등)
+### 관광지(이미지, 주소, 장소명 등)
 @app.get("/test13")
 def test(request: Request):
     return templates.TemplateResponse("imagetap_map.html", {"request": request})
 
-### 소민 : 마커 최종 5개 확정 + 관광지(이미지, 주소, 장소명 등) 진행중...
+### 마커 최종 5개 확정 + 관광지(이미지, 주소, 장소명 등) 진행중...
 @app.get("/test14")
 def test(request: Request):
     return templates.TemplateResponse("jjambong_map.html", {"request": request})
 
-### 소민 : 불러와서 100개 마커 하기! 진행중...
+### 불러와서 100개 마커 하기! 진행중...
 @app.get("/test15")
 def test(request: Request):
     return templates.TemplateResponse("100upload_map.html", {"request": request})
