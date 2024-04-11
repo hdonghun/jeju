@@ -12,8 +12,8 @@
 |------|---|---|
 |김가은|https://github.com/qqro724|AI, 기획, 디자인|
 |남소민|https://github.com/somin0214|AI, 기획, 챗봇시스템, 프론트엔드|
-|배진혜|https://github.com/jinurumi|AI, 기획, 데이터셋구축, 추천시스템|
-|한동훈|https://github.com/hdonghun|AI, 기획, 위성데이터 Segmentation, Figma(디자인), 추천시스템, 데이터셋구축, MySQL, FastAPI(백엔드, 프론트엔드)|
+|배진혜|https://github.com/jinurumi|AI, 기획, 데이터 전처리 및 데이터셋 구축, DB 구축, 추천시스템|
+|한동훈|https://github.com/hdonghun|AI, 기획, 위성데이터 Segmentation, Figma(디자인), 추천시스템, 데이터셋구축, DB 구축, FastAPI(백엔드, 프론트엔드)|
 
 <h3>✨기술 스택</h3>
 
@@ -24,7 +24,7 @@
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"><img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"><img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
 <h3>✨서버</h3>
-알파코 가상서버
+알파코 가상서버 (GPU 3090)
 
 <h4>✨디자인</h4>
 
