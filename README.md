@@ -42,6 +42,7 @@ NOTION - https://stealth-homburg-5c8.notion.site/2023-359f7baeba5c4903bf493a4f72
 
 <h4>✨시연 영상 링크</h4>
 https://www.notion.so/7cc9064022b14d948b81d63b3a6125cf
+
 https://github.com/user-attachments/assets/9514a990-04d9-4e11-b5d0-44a29d7c9d1e
 
 
